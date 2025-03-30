@@ -8,6 +8,9 @@
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
+  "dependencies": {
+    "@niivue/niivue": "^0.52.0"
+  },
   "devDependencies": {
     "typescript": "~5.7.2",
     "vite": "^6.2.0"
