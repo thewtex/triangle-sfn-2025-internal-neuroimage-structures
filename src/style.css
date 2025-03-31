@@ -25,6 +25,7 @@ a:hover {
 body {
   margin: 0;
   display: flex;
+  flex-direction: column;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
@@ -45,6 +46,9 @@ h1 {
   font-size: 0.8em;
   font-weight: 400;
   color: #666;
+}
+header {
+  margin: 2em 0;
 }
 
 .logo {
