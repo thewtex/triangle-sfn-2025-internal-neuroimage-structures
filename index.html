@@ -96,15 +96,49 @@
 
         <div class="discussion">
           <h2>Discussion</h2>
-          <p>
-            NiiVue is a powerful tool for visualizing neuroimaging data in 3D. It is open-source and can be easily integrated into web applications.
-            The use of WebGL allows for efficient rendering of large datasets, making it suitable for real-time visualization.
-          </p>
+          <ul>
+            <li><strong>Summary:</strong> NiiVue's gradient opacity implementation provides an intuitive, computationally efficient method for visualizing internal brain structures across multiple imaging modalities.</li>
+            <li><strong>Power-Law Distribution:</strong> Natural structures exhibit gradient magnitudes that follow power-law distributions, similar to those observed in ultrasound tissue interactions.</li>
+            <li><strong>Log-Transform Rationale:</strong> The logarithmic transformation is particularly well-suited for neuroimaging data as it:
+              <ul>
+                <li>Compresses the wide dynamic range of gradient magnitudes</li>
+                <li>Emphasizes subtle structural boundaries within similar intensity regions</li>
+                <li>Produces more perceptually linear visual results</li>
+              </ul>
+            </li>
+            <li><strong>Ultrasound Comparison:</strong> Similar logarithmic transformations are standard in B-mode ultrasound imaging, where power-law distributions are well-documented in tissue interactions.</li>
+            <li>User Interface Considerations:
+              <ul>
+                <li>Single intuitive parameter (0-1 scale) controls the effect across all modalities</li>
+                <li>Consistent behavior regardless of image resolution or intensity range</li>
+                <li>Preserves original color mapping and intensity relationships</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Scalability:</strong> Implementation designed to handle datasets from microscopic to macroscopic scales:
+              <ul>
+                <li>Will support terabyte-scale OME-Zarr imaging datasets in future work</li>
+                <li>Maintains consistent visualization from subcellular to whole-brain volumes</li>
+              </ul>
+            </li>
+            <li><strong>Future Directions:</strong>
+              <ul>
+                <li>Optimization for larger-than-memory datasets</li>
+                <li>Enhanced interactive parameter adjustment for specific research applications</li>
+              </ul>
+            </li>
+          </ul>
         </div>
       </section>
 
       <footer class="poster-footer">
-        <div class="references"></div>
+        <div class="references">
+          <h3>References</h3>
+          <ol>
+            <li>NiiVue/niivue: a WebGL2 based medical image viewer. GitHub. (2025). <a href="https://github.com/niivue/niivue">https://github.com/niivue/niivue</a></li>
+            <li>Parker, K.J. (2022). Power laws prevail in ultrasound-tissue interactions. PMC, 9118335.</li>
+          </ol>
+        </div>
         <div class="resources"></div>
       </footer>
     </article>

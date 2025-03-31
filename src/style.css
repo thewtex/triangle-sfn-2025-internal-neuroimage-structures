@@ -11,9 +11,8 @@
 
 	--blue: #0047ab;
 	--light-blue: #3562a0;
-	--teal: #69e5ea;
-	--teal-rgb: 105, 229, 234;
-	--light-teal: #94f3f4;
+	--teal: #5e9bc2;
+	--light-teal: #69e5ea;
 
   --red: #73000a;
   --light-red: #a7000f;
@@ -109,7 +108,7 @@ button {
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: var(--light-teal);
+  border-color: var(--teal);
 }
 button:focus,
 button:focus-visible {
