@@ -1,10 +1,23 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+	--serif: 'Merriweather', serif;
+	--sans-serif: system-ui, Avenir, 'Nunito Sans', Helvetica, Arial, sans-serif;
+
+  font-family: var(--sans-serif);
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(15, 15, 15, 0.87);
+	--black-text: #0a121d;
+	--white-text: #d7dade;
+
+	--blue: #0047ab;
+	--light-blue: #3562a0;
+	--green: #0eac00;
+	--light-green: #50b148;
+	--teal: #69e5ea;
+	--teal-rgb: 105, 229, 234;
+	--light-teal: #94f3f4;
+
+  color: var(--black-text);
   background-color: white;
 
   font-synthesis: none;
@@ -15,14 +28,15 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--green);
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: var(--light-green);
 }
 
 body {
+  font-family: var(--sans-serif);
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
@@ -31,6 +45,17 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+}
+h2 {
+  font-size: 2.4em;
+  line-height: 1.1;
+  color: var(--white-text);
+  background-color: var(--light-blue);
+  font-family: var(--serif);
+  text-align: center;
+  padding: 0.4em 0.6em;
+  border-radius: 0.3em;
+  filter: drop-shadow(0 0 0.15em var(--blue));
 }
 
 .header-title {
@@ -42,7 +67,7 @@ h1 {
 .header-subtitle {
   font-size: 0.8em;
   font-weight: 400;
-  color: #666;
+  color: #777;
 }
 header {
   margin: 2em 0;
@@ -73,12 +98,12 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--text-black);
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: var(--light-green);
 }
 button:focus,
 button:focus-visible {
