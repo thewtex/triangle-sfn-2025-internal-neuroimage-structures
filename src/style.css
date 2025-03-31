@@ -24,9 +24,6 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  flex-direction: column;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -86,4 +83,72 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+.poster {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr; /* Creates a 3-column layout */
+  grid-template-rows: auto auto auto;
+  grid-template-areas:
+    "header header header"
+    "intro results discussion"
+    "methods results discussion"
+    "footer footer footer";
+  gap: 6em;
+  padding: 2em;
+  max-width: 1200px; /* For web viewing */
+  margin: 0 auto;
+}
+
+.poster-header { grid-area: header; }
+.introduction { grid-area: intro; }
+.methods { grid-area: methods; }
+.results { grid-area: results; }
+.discussion { grid-area: discussion; }
+.footer { grid-area: footer; }
+
+@media screen and (max-width: 900px) {
+  .poster {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "header header"
+      "intro methods"
+      "results results"
+      "results results"
+      "discussion discussion"
+      "footer footer";
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .poster {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "intro"
+      "methods"
+      "results"
+      "discussion"
+      "footer";
+  }
+}
+
+@media screen {
+  /* Screen-specific styles */
+  /* .chart-image {
+    content: url('chart-screen.jpg');
+  } */
+}
+
+@media print {
+  /* Print-specific styles */
+  /* .chart-image {
+    content: url('chart-print.jpg');
+  } */
+  @page {
+    size: 48in 36in; /* Standard poster size */
+    margin: 0.5in;
+    marks: crop cross;
+    orientation: landscape;
+  }
 }
