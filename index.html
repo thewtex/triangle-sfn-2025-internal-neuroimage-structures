@@ -41,20 +41,34 @@
           implemented in <strong>NiiVue</strong>, enhances <strong>visualization of internal structures</strong>
           while maintaining <strong>real-time performance</strong> across devices.
         </p>
+        <br>
         <h2>Introduction</h2>
         <ul>
-          <li><strong>Neuroimaging Visualization Challenge:</strong> Visualizing internal brain structures is critical for understanding complex neuroanatomy, functional relationships, and pathology detection.</li>
-          <li><strong>NiiVue Overview:</strong> NiiVue is a web-based visualization tool for neuroimaging that runs on any operating system and web device (phone, tablet, computer).</li>
-          <li><strong>NiiVue Capabilities:</strong> Uniquely displays multiple neuroimaging datatypes simultaneously: voxels, meshes, tractography streamlines, statistical maps, and connectomes.</li>
+          <li><strong>Neuroimaging Visualization Challenge:</strong>
+            <ul>
+               <li>Visualizing internal brain structures is critical for understanding complex neuroanatomy, functional relationships, and pathology detection.</li>
+               <li>Our goal is to provide advanced visualization techniques through an intuitive web interface accessible to researchers without specialized hardware or software installations.</li>
+            </ul>
+          </li>
+          <li><strong>NiiVue Capabilities:</strong>
+            <ul>
+              <li>NiiVue is a web-based visualization tool for neuroimaging that runs on any operating system and web device (phone, tablet, computer).</li>
+              <li>Uniquely displays multiple neuroimaging datatypes simultaneously: voxels, meshes, tractography streamlines, statistical maps, and connectomes.</li>
+            </ul>
+          </li>
           <li><strong>Gradient Opacity Role:</strong> Traditional volume rendering often obscures internal structures behind high-intensity regions; gradient opacity allows visualization through tissue based on structural boundaries.</li>
-          <li><strong>Accessibility Goal:</strong> Provides advanced visualization techniques through an intuitive web interface accessible to researchers without specialized hardware or software installations.</li>
         </ul>
       </section>
 
       <section class="methods">
         <h2>Methods</h2>
         <ul>
-          <li><strong>Normalized Logarithmic Gradient Approach:</strong> Implemented a logarithmic transformation of gradient magnitudes to enhance visibility of structural boundaries across tissue types.</li>
+          <li><strong>Normalized Logarithmic Gradient Approach:</strong>
+            <ul>
+              <li>Applies logarithmic transformation to compress wide dynamic range of gradient magnitudes</li>
+              <li>Normalizes values to range for intuitive user control</li>
+            </ul>
+          </li>
 
           <li><strong>Gradient Magnitude Calculation:</strong>
             <ul>
@@ -63,36 +77,24 @@
             </ul>
           </li>
 
-          <li><strong>GPGPU Implementation:</strong>
+          <li><strong>Real-Time, GPGPU Performance:</strong>
             <ul>
               <li>Pre-computes gradients using WebGL2 fragment shaders for parallel processing</li>
               <li>Leverages GPU texture interpolation hardware for optimized sampling</li>
               <li>Encodes 3D gradient orientation and magnitude in only 4 bytes total per voxel</li>
-            </ul>
-          </li>
-
-          <li><strong>Normalization Technique:</strong>
-            <ul>
-              <li>Applies logarithmic transformation to compress wide dynamic range of gradient magnitudes</li>
-              <li>Normalizes values to range for intuitive user control</li>
-            </ul>
-          </li>
-
-          <li><strong>Real-Time Performance:</strong>
-            <ul>
               <li>One-time preprocessing cost of ~100ms for typical brain volumes</li>
               <li>Minimal impact on frame rate during interactive viewing</li>
             </ul>
           </li>
         </ul>
 
-        <div>
-          <canvas id="gl1" width="240" height="240"></canvas>
-        </div>
       </section>
 
       <section class="results">
         <h2>Results</h2>
+        <div>
+          <canvas id="gl1" width="240" height="240"></canvas>
+        </div>
       </section>
 
       <section class="discussion">

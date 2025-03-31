@@ -117,7 +117,7 @@ button:focus-visible {
 
 .poster {
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr; /* Creates a 3-column layout */
+  grid-template-columns: 1fr 1.5fr 1fr; /* Creates a 3-column layout */
   grid-template-rows: auto auto auto;
   grid-template-areas:
     "header header header"
