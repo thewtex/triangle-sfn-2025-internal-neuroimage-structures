@@ -1,11 +1,13 @@
 <!doctype html>
 <html lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Triangle SfN 2025: Efficient and Effective 3D Visualization of Internal Neuroimage Structures with NiiVue</title>
   </head>
+
   <body>
     <article class="poster">
 
@@ -26,6 +28,7 @@
             <img src="/src/assets/triangle-sfn.png" class="logo vanilla" alt="Triangle SfN logo" />
           </a>
         </div>
+
         <div class="header-subtitle">
           Triangle Society for Neuroscience 2025 Conference<br>
           <i>Matthew McCormick, PhD<sup>1</sup>, Taylor Hanayik, PhD<sup>2</sup>, and Chris Rorden, PhD<sup>3</sup></i><br>
@@ -33,102 +36,99 @@
         </div>
       </header>
 
-      <section class="poster-content">
+      <section class="introduction">
         <p>A <strong>novel normalized logarithmic gradient magnitude approach</strong>,
           implemented in <strong>NiiVue</strong>, enhances <strong>visualization of internal structures</strong>
           while maintaining <strong>real-time performance</strong> across devices.
         </p>
-        <div class="introduction">
-          <h2>Introduction</h2>
-          <ul>
-            <li><strong>Neuroimaging Visualization Challenge:</strong> Visualizing internal brain structures is critical for understanding complex neuroanatomy, functional relationships, and pathology detection.</li>
-            <li><strong>NiiVue Overview:</strong> NiiVue is a web-based visualization tool for neuroimaging that runs on any operating system and web device (phone, tablet, computer).</li>
-            <li><strong>NiiVue Capabilities:</strong> Uniquely displays multiple neuroimaging datatypes simultaneously: voxels, meshes, tractography streamlines, statistical maps, and connectomes.</li>
-            <li><strong>Gradient Opacity Role:</strong> Traditional volume rendering often obscures internal structures behind high-intensity regions; gradient opacity allows visualization through tissue based on structural boundaries.</li>
-            <li><strong>Accessibility Goal:</strong> Provides advanced visualization techniques through an intuitive web interface accessible to researchers without specialized hardware or software installations.</li>
-          </ul>
+        <h2>Introduction</h2>
+        <ul>
+          <li><strong>Neuroimaging Visualization Challenge:</strong> Visualizing internal brain structures is critical for understanding complex neuroanatomy, functional relationships, and pathology detection.</li>
+          <li><strong>NiiVue Overview:</strong> NiiVue is a web-based visualization tool for neuroimaging that runs on any operating system and web device (phone, tablet, computer).</li>
+          <li><strong>NiiVue Capabilities:</strong> Uniquely displays multiple neuroimaging datatypes simultaneously: voxels, meshes, tractography streamlines, statistical maps, and connectomes.</li>
+          <li><strong>Gradient Opacity Role:</strong> Traditional volume rendering often obscures internal structures behind high-intensity regions; gradient opacity allows visualization through tissue based on structural boundaries.</li>
+          <li><strong>Accessibility Goal:</strong> Provides advanced visualization techniques through an intuitive web interface accessible to researchers without specialized hardware or software installations.</li>
+        </ul>
+      </section>
+
+      <section class="methods">
+        <h2>Methods</h2>
+        <ul>
+          <li><strong>Normalized Logarithmic Gradient Approach:</strong> Implemented a logarithmic transformation of gradient magnitudes to enhance visibility of structural boundaries across tissue types.</li>
+
+          <li><strong>Gradient Magnitude Calculation:</strong>
+            <ul>
+              <li>First-order gradients computed using 3D Sobel-approximation operators</li>
+              <li>Optionally uses second-order gradients based on Taylor Series expansion for enhanced detail</li>
+            </ul>
+          </li>
+
+          <li><strong>GPGPU Implementation:</strong>
+            <ul>
+              <li>Pre-computes gradients using WebGL2 fragment shaders for parallel processing</li>
+              <li>Leverages GPU texture interpolation hardware for optimized sampling</li>
+              <li>Encodes 3D gradient orientation and magnitude in only 4 bytes total per voxel</li>
+            </ul>
+          </li>
+
+          <li><strong>Normalization Technique:</strong>
+            <ul>
+              <li>Applies logarithmic transformation to compress wide dynamic range of gradient magnitudes</li>
+              <li>Normalizes values to range for intuitive user control</li>
+            </ul>
+          </li>
+
+          <li><strong>Real-Time Performance:</strong>
+            <ul>
+              <li>One-time preprocessing cost of ~100ms for typical brain volumes</li>
+              <li>Minimal impact on frame rate during interactive viewing</li>
+            </ul>
+          </li>
+        </ul>
+
+        <div>
+          <canvas id="gl1" width="240" height="240"></canvas>
         </div>
+      </section>
 
-        <div class="methods">
-          <h2>Methods</h2>
-          <ul>
+      <section class="results">
+        <h2>Results</h2>
+      </section>
 
-            <li><strong>Normalized Logarithmic Gradient Approach:</strong> Implemented a logarithmic transformation of gradient magnitudes to enhance visibility of structural boundaries across tissue types.</li>
-
-            <li><strong>Gradient Magnitude Calculation:</strong>
-              <ul>
-                <li>First-order gradients computed using 3D Sobel-approximation operators</li>
-                <li>Optionally uses second-order gradients based on Taylor Series expansion for enhanced detail</li>
-              </ul>
-            </li>
-
-            <li><strong>GPGPU Implementation:</strong>
-              <ul>
-                <li>Pre-computes gradients using WebGL2 fragment shaders for parallel processing</li>
-                <li>Leverages GPU texture interpolation hardware for optimized sampling</li>
-                <li>Encodes 3D gradient orientation and magnitude in only 4 bytes total per voxel</li>
-              </ul>
-            </li>
-
-            <li><strong>Normalization Technique:</strong>
-              <ul>
-                <li>Applies logarithmic transformation to compress wide dynamic range of gradient magnitudes</li>
-                <li>Normalizes values to range for intuitive user control</li>
-              </ul>
-            </li>
-
-            <li><strong>Real-Time Performance:</strong>
-              <ul>
-                <li>One-time preprocessing cost of ~100ms for typical brain volumes</li>
-                <li>Minimal impact on frame rate during interactive viewing</li>
-              </ul>
-            </li>
-          </ul>
-          <div>
-            <canvas id="gl1" width="240" height="240"></canvas>
-          </div>
-
-        </div>
-
-        <div class="results">
-          <h2>Results</h2>
-        </div>
-
-        <div class="discussion">
-          <h2>Discussion</h2>
-          <ul>
-            <li><strong>Summary:</strong> NiiVue's gradient opacity implementation provides an intuitive, computationally efficient method for visualizing internal brain structures across multiple imaging modalities.</li>
-            <li><strong>Power-Law Distribution:</strong> Natural structures exhibit gradient magnitudes that follow power-law distributions, similar to those observed in ultrasound tissue interactions.</li>
-            <li><strong>Log-Transform Rationale:</strong> The logarithmic transformation is particularly well-suited for neuroimaging data as it:
-              <ul>
-                <li>Compresses the wide dynamic range of gradient magnitudes</li>
-                <li>Emphasizes subtle structural boundaries within similar intensity regions</li>
-                <li>Produces more perceptually linear visual results</li>
-              </ul>
-            </li>
-            <li><strong>Ultrasound Comparison:</strong> Similar logarithmic transformations are standard in B-mode ultrasound imaging, where power-law distributions are well-documented in tissue interactions.</li>
-            <li>User Interface Considerations:
-              <ul>
-                <li>Single intuitive parameter (0-1 scale) controls the effect across all modalities</li>
-                <li>Consistent behavior regardless of image resolution or intensity range</li>
-                <li>Preserves original color mapping and intensity relationships</li>
-              </ul>
-            </li>
-            <li>
-              <strong>Scalability:</strong> Implementation designed to handle datasets from microscopic to macroscopic scales:
-              <ul>
-                <li>Will support terabyte-scale OME-Zarr imaging datasets in future work</li>
-                <li>Maintains consistent visualization from subcellular to whole-brain volumes</li>
-              </ul>
-            </li>
-            <li><strong>Future Directions:</strong>
-              <ul>
-                <li>Optimization for larger-than-memory datasets</li>
-                <li>Enhanced interactive parameter adjustment for specific research applications</li>
-              </ul>
-            </li>
-          </ul>
-        </div>
+      <section class="discussion">
+        <h2>Discussion</h2>
+        <ul>
+          <li><strong>Summary:</strong> NiiVue's gradient opacity implementation provides an intuitive, computationally efficient method for visualizing internal brain structures across multiple imaging modalities.</li>
+          <li><strong>Power-Law Distribution:</strong> Natural structures exhibit gradient magnitudes that follow power-law distributions, similar to those observed in ultrasound tissue interactions.</li>
+          <li><strong>Log-Transform Rationale:</strong> The logarithmic transformation is particularly well-suited for neuroimaging data as it:
+            <ul>
+              <li>Compresses the wide dynamic range of gradient magnitudes</li>
+              <li>Emphasizes subtle structural boundaries within similar intensity regions</li>
+              <li>Produces more perceptually linear visual results</li>
+            </ul>
+          </li>
+          <li><strong>Ultrasound Comparison:</strong> Similar logarithmic transformations are standard in B-mode ultrasound imaging, where power-law distributions are well-documented in tissue interactions.</li>
+          <li>User Interface Considerations:
+            <ul>
+              <li>Single intuitive parameter (0-1 scale) controls the effect across all modalities</li>
+              <li>Consistent behavior regardless of image resolution or intensity range</li>
+              <li>Preserves original color mapping and intensity relationships</li>
+            </ul>
+          </li>
+          <li>
+            <strong>Scalability:</strong> Implementation designed to handle datasets from microscopic to macroscopic scales:
+            <ul>
+              <li>Will support terabyte-scale OME-Zarr imaging datasets in future work</li>
+              <li>Maintains consistent visualization from subcellular to whole-brain volumes</li>
+            </ul>
+          </li>
+          <li><strong>Future Directions:</strong>
+            <ul>
+              <li>Optimization for larger-than-memory datasets</li>
+              <li>Enhanced interactive parameter adjustment for specific research applications</li>
+            </ul>
+          </li>
+        </ul>
       </section>
 
       <footer class="poster-footer">
