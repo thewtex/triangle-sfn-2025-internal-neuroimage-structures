@@ -142,6 +142,11 @@ figcaption {
     margin-left: auto;
     margin-right: auto;
 }
+#github-links img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 button {
   border-radius: 8px;
