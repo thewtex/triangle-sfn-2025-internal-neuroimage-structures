@@ -115,6 +115,12 @@ figcaption {
   text-align: center;
 }
 
+.result-render {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -136,12 +142,12 @@ button:focus-visible {
 
 .poster {
   display: grid;
-  grid-template-columns: 1fr 1.5fr 1fr; /* Creates a 3-column layout */
+  grid-template-columns: 1fr 1.8fr 1fr; /* Creates a 3-column layout */
   grid-template-rows: auto auto auto;
   grid-template-areas:
     "header header header"
     "intro results discussion"
-    "methods results discussion"
+    "methods results conclusion"
     "footer footer footer";
   gap: 6em;
   padding: 2em;
@@ -153,6 +159,7 @@ button:focus-visible {
 .methods { grid-area: methods; }
 .results { grid-area: results; }
 .discussion { grid-area: discussion; }
+.conclusion { grid-area: conclusion; }
 .footer { grid-area: footer; }
 
 @media screen and (max-width: 900px) {
@@ -163,7 +170,7 @@ button:focus-visible {
       "intro methods"
       "results results"
       "results results"
-      "discussion discussion"
+      "discussion conclusion"
       "footer footer";
   }
 }
@@ -177,6 +184,7 @@ button:focus-visible {
       "methods"
       "results"
       "discussion"
+      "conclusion"
       "footer";
   }
 }

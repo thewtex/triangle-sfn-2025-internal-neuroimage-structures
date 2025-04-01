@@ -13,15 +13,6 @@ const matCapTexture = "/Cream.jpg";
 const clipPlaneColor = [1, 0, 0, 0.0];
 const clipPlane = [0.25, 250, 0];
 
-// const nv1 = new Niivue(niiVueDefaults);
-// const gl1 = document.getElementById("gl1")! as HTMLCanvasElement;
-// await nv1.attachToCanvas(gl1);
-// nv1.loadVolumes([{ url: "/matt_t1w.nii.gz" }]);
-// nv1.setSliceType(nv1.sliceTypeRender);
-// nv1.setVolumeRenderIllumination(illumination);
-// console.log(nv1);
-// gradientOrientationOrder1Nv.loadMatCapTexture("/Cortex.jpg");
-
 async function activateGradientOrderFigure() {
   const volumeList = [{ url: "/shear.nii.gz", colormap: "gray" }];
   const azimuth = 132;
@@ -73,8 +64,87 @@ async function activateGradientOrderFigure() {
     "3d": true,
     clipPlane: true,
   });
+}
 
-  console.log(gradientOrientationOrder1Nv);
+async function activateResultFigure(name: string) {
+  const volumeList = [{ url: `${name}.nii.gz`, colormap: "gray" }];
+
+  const canvas0 = document.querySelector(
+    `div#${name}.result-render > .result-render-0 > canvas`
+  )! as HTMLCanvasElement;
+  canvas0.removeAttribute("hidden");
+  const nv0 = new Niivue(niiVueDefaults);
+  await nv0.attachToCanvas(canvas0);
+  await nv0.loadVolumes(volumeList);
+  nv0.setClipPlane(clipPlane);
+  nv0.setClipPlaneColor(clipPlaneColor);
+  nv0.setSliceType(nv0.sliceTypeRender);
+  nv0.loadMatCapTexture(matCapTexture);
+  await nv0.setVolumeRenderIllumination(illumination);
+
+  const canvas50 = document.querySelector(
+    `div#${name}.result-render > .result-render-50 > canvas`
+  )! as HTMLCanvasElement;
+  canvas50.removeAttribute("hidden");
+  const nv50 = new Niivue(niiVueDefaults);
+  await nv50.attachToCanvas(canvas50);
+  await nv50.loadVolumes(volumeList);
+  nv50.setClipPlane(clipPlane);
+  nv50.setClipPlaneColor(clipPlaneColor);
+  nv50.setSliceType(nv50.sliceTypeRender);
+  nv50.loadMatCapTexture(matCapTexture);
+  await nv50.setVolumeRenderIllumination(illumination);
+  nv50.setGradientOpacity(0.5);
+
+  const canvas100 = document.querySelector(
+    `div#${name}.result-render > .result-render-100 > canvas`
+  )! as HTMLCanvasElement;
+  canvas100.removeAttribute("hidden");
+  const nv100 = new Niivue(niiVueDefaults);
+  await nv100.attachToCanvas(canvas100);
+  await nv100.loadVolumes(volumeList);
+  nv100.setClipPlane(clipPlane);
+  nv100.setClipPlaneColor(clipPlaneColor);
+  nv100.setSliceType(nv100.sliceTypeRender);
+  nv100.loadMatCapTexture(matCapTexture);
+  await nv100.setVolumeRenderIllumination(illumination);
+  nv100.setGradientOpacity(1.0);
+
+  nv0.broadcastTo([nv50, nv100], {
+    "3d": true,
+    clipPlane: true,
+  });
+  nv50.broadcastTo([nv0, nv100], {
+    "3d": true,
+    clipPlane: true,
+  });
+  nv100.broadcastTo([nv0, nv50], {
+    "3d": true,
+    clipPlane: true,
+  });
+
+  const width = Math.floor(
+    (parseInt(canvas0.getAttribute("width")!) +
+      parseInt(canvas50.getAttribute("width")!) +
+      parseInt(canvas100.getAttribute("width")!)) /
+      3
+  );
+  canvas0.setAttribute("width", `${width}`);
+  canvas50.setAttribute("width", `${width}`);
+  canvas100.setAttribute("width", `${width}`);
+  canvas0.setAttribute("height", `${width}`);
+  canvas50.setAttribute("height", `${width}`);
+  canvas100.setAttribute("height", `${width}`);
+  nv0.resizeListener();
+  nv50.resizeListener();
+  nv100.resizeListener();
 }
 
 await activateGradientOrderFigure();
+
+await activateResultFigure("t1w");
+await activateResultFigure("flair");
+// await activateResultFigure("tof");
+await activateResultFigure("mni152");
+await activateResultFigure("ct");
+// await activateResultFigure("visiblehuman");

@@ -106,17 +106,125 @@
 
       <section class="results">
         <h2>Results</h2>
-        <div>
-          <canvas id="gl1" width="240" height="240"></canvas>
-        </div>
+
+        <figure>
+          <div id="t1w" class="result-render">
+            <div class="result-render-0">
+              <canvas height="256" hidden></canvas>
+            </div>
+            <div class="result-render-50">
+              <canvas height="256" hidden></canvas>
+            </div>
+            <div class="result-render-100">
+              <canvas height="256" hidden></canvas>
+            </div>
+          </div>
+          <figcaption><i><b>Figure 2:</b>
+            T1-Weighted MRI.
+            Gradient Opacity 0: Only external brain surface visible.
+            Gradient Opacity 0.5: Ventricles and major sulci become visible.
+            Gradient Opacity 1.0: Complete visualization of internal structures.
+          </i></figcaption>
+        </figure>
+
+        <figure>
+          <div id="flair" class="result-render">
+            <div class="result-render-0">
+              <canvas height="256" hidden></canvas>
+            </div>
+            <div class="result-render-50">
+              <canvas height="256" hidden></canvas>
+            </div>
+            <div class="result-render-100">
+              <canvas height="256" hidden></canvas>
+            </div>
+          </div>
+          <figcaption><i><b>Figure 3:</b>
+            FLAIR MRI.
+            Emphasize gray/white matter and cortex boundaries.
+          </i></figcaption>
+        </figure>
+
+        <figure>
+          <div id="tof" class="result-render">
+            <div class="result-render-0">
+              <canvas height="256" hidden></canvas>
+            </div>
+            <div class="result-render-50">
+              <canvas height="256" hidden></canvas>
+            </div>
+            <div class="result-render-100">
+              <canvas height="256" hidden></canvas>
+            </div>
+          </div>
+          <figcaption><i><b>Figure 4:</b>
+            TOF MRI Angiography.
+            Superior visualization of vascular trees within brain tissue.
+          </i></figcaption>
+        </figure>
+
+        <figure>
+          <div id="mni152" class="result-render">
+            <div class="result-render-0">
+              <canvas height="256" hidden></canvas>
+            </div>
+            <div class="result-render-50">
+              <canvas height="256" hidden></canvas>
+            </div>
+            <div class="result-render-100">
+              <canvas height="256" hidden></canvas>
+            </div>
+          </div>
+          <figcaption><i><b>Figure 5:</b>
+            MNI-152 Atlas.
+            Enhanced definition of deep brain structures.
+          </i></figcaption>
+        </figure>
+
+        <figure>
+          <div id="ct" class="result-render">
+            <div class="result-render-0">
+              <canvas height="256" hidden></canvas>
+            </div>
+            <div class="result-render-50">
+              <canvas height="256" hidden></canvas>
+            </div>
+            <div class="result-render-100">
+              <canvas height="256" hidden></canvas>
+            </div>
+          </div>
+          <figcaption><i><b>Figure 6:</b>
+            CT electrodes.
+            Precise localization of implanted devices through surrounding tissue.
+          </i></figcaption>
+        </figure>
+
+        <figure>
+          <div id="visiblehuman" class="result-render">
+            <div class="result-render-0">
+              <canvas height="256" hidden></canvas>
+            </div>
+            <div class="result-render-50">
+              <canvas height="256" hidden></canvas>
+            </div>
+            <div class="result-render-100">
+              <canvas height="256" hidden></canvas>
+            </div>
+          </div>
+          <figcaption><i><b>Figure 7:</b>
+            Visible Human RGB.
+            Natural color preservation while revealing internal structures
+          </i></figcaption>
+        </figure>
       </section>
 
       <section class="discussion">
         <h2>Discussion</h2>
         <ul>
-          <li><strong>Summary:</strong> NiiVue's gradient opacity implementation provides an intuitive, computationally efficient method for visualizing internal brain structures across multiple imaging modalities.</li>
-          <li><strong>Power-Law Distribution:</strong> Natural structures exhibit gradient magnitudes that follow power-law distributions, similar to those observed in ultrasound tissue interactions.</li>
-          <li><strong>Log-Transform Rationale:</strong> The logarithmic transformation is particularly well-suited for neuroimaging data as it:
+          <li><strong>Power-Law Distribution:</strong>
+             Natural structures exhibit gradient magnitudes that follow power-law distributions.
+          </li>
+          <li>A <strong>logarithmic transformation</strong> is particularly well-suited for neuroimaging data as it:
             <ul>
               <li>Compresses the wide dynamic range of gradient magnitudes</li>
               <li>Emphasizes subtle structural boundaries within similar intensity regions</li>
@@ -124,7 +232,7 @@
             </ul>
           </li>
           <li><strong>Ultrasound Comparison:</strong> Similar logarithmic transformations are standard in B-mode ultrasound imaging, where power-law distributions are well-documented in tissue interactions.</li>
-          <li>User Interface Considerations:
+          <li><strong>User Interface Considerations:</strong>
             <ul>
               <li>Single intuitive parameter (0-1 scale) controls the effect across all modalities</li>
               <li>Consistent behavior regardless of image resolution or intensity range</li>
@@ -132,22 +240,21 @@
             </ul>
           </li>
           <li>
-            <strong>Scalability:</strong> Implementation designed to handle datasets from microscopic to macroscopic scales:
+            <strong>Future Directions:</strong> Implementation designed to handle datasets from microscopic to macroscopic scales:
             <ul>
               <li>Will support terabyte-scale OME-Zarr imaging datasets in future work</li>
-              <li>Maintains consistent visualization from subcellular to whole-brain volumes</li>
+              <li>Maintain consistent visualization from subcellular to whole-brain volumes</li>
             </ul>
-          </li>
-          <li><strong>Future Directions:</strong>
-            <ul>
-              <li>Optimization for larger-than-memory datasets</li>
-              <li>Enhanced interactive parameter adjustment for specific research applications</li>
-            </ul>
+            Additionally, develop techniques that focus on AI-identified regions-of-interest with 3D context for specific research and clinical applications.
           </li>
         </ul>
       </section>
 
-      <footer class="poster-footer">
+      <section class="Conclusion">
+        <h2>Conclusion</h2>
+        <ul>
+          <li><strong>Summary:</strong> NiiVue's gradient opacity implementation provides an intuitive, computationally efficient method for visualizing internal brain structures across multiple imaging modalities.</li>
+        </ul>
         <div class="references">
           <h3>References</h3>
           <ol>
@@ -155,7 +262,11 @@
             <li>Parker, K.J. (2022). Power laws prevail in ultrasound-tissue interactions. PMC, 9118335.</li>
           </ol>
         </div>
-        <div class="resources"></div>
+      </section>
+
+      <footer class="poster-footer">
+        <div class="resources">
+        </div>
       </footer>
     </article>
     <script type="module" src="/src/main.ts"></script>
