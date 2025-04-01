@@ -356,13 +356,13 @@
           <li>
             <strong>Power-Law Distribution:</strong>
             Natural structures exhibit gradient magnitudes that follow power-law
-            distributions.
+            distributions following Zipf's law [6].
           </li>
           <li>
             A <strong>logarithmic transformation</strong> is particularly
             well-suited for neuroimaging data as it:
             <ul>
-              <li>Compresses the wide dynamic range of gradient magnitudes following Zipf's law [6]</li>
+              <li>Compresses the wide dynamic range of gradient magnitudes</li>
               <li>
                 Emphasizes subtle structural boundaries within similar intensity
                 regions
@@ -399,6 +399,26 @@
                 Will support terabyte-scale OME-Zarr [7] imaging datasets in future
                 work
               </li>
+
+              <figure>
+                <div id="ome-zarr" class="ome-zarr-render">
+                  <div class="ome-zarr-render-scale-5">
+                    <canvas height="256" hidden></canvas>
+                  </div>
+                  <div class="ome-zarr-render-scale-3">
+                    <canvas height="256" hidden></canvas>
+                  </div>
+                  <div class="ome-zarr-render-scale-1">
+                    <canvas height="256" hidden></canvas>
+                  </div>
+                </div>
+                <figcaption>
+                  <i><b>Figure 9:</b>
+                    OME-Zarr lightsheet human cortex volume [8] rendered at multiple scales.
+                  </i>
+                </figcaption>
+              </figure>
+
               <li>
                 Maintain consistent visualization from subcellular to
                 whole-brain volumes [6]
@@ -437,7 +457,7 @@
             <li>
               Khan, IR and Ohba, Ryoji. Closed-form expressions for the finite difference approximations
 of first and higher derivatives based on Taylor series. Journal of Computational and Applied
-Mathematics, 107:179–193, 1999. <a href="https://doi.org/10.1016/S0377-0427(99)00088-6">https://doi.org/10.1016/S0377-0427(99)00088-6</a>.
+Mathematics, 107:179-193, 1999. <a href="https://doi.org/10.1016/S0377-0427(99)00088-6">https://doi.org/10.1016/S0377-0427(99)00088-6</a>.
             </li>
             <li>
               Ikits, M., Kniss, J., Lefohn, A., & Hansen, C. (2004). Volume rendering techniques. In R. Fernando (Ed.), GPU Gems: Programming Techniques, Tips, and Tricks for Real-Time Graphics (pp. 667-690). Addison-Wesley. Retrieved April 1, 2025, from <a href="https://developer.nvidia.com/gpugems/gpugems/part-vi-beyond-triangles/chapter-39-volume-rendering-techniques">https://developer.nvidia.com/gpugems/gpugems/part-vi-beyond-triangles/chapter-39-volume-rendering-techniques</a>
@@ -450,6 +470,9 @@ Mathematics, 107:179–193, 1999. <a href="https://doi.org/10.1016/S0377-0427(99
             </li>
             <li>
               Moore, J., Basurto-Lozada, D., Besson, S. et al. OME-Zarr: a cloud-optimized bioimaging file format with international community support. Histochem Cell Biol 160, 223-251 (2023). <a href="https://doi.org/10.1007/s00418-023-02209-1">https://doi.org/10.1007/s00418-023-02209-1</a>
+            </li>
+            <li>
+              Kamentsky, Lee; Marx, Slayton; Park, Juhyuk; Su-Arcaro, Clover; Moukheiber, Mira; Zhao, Victor (2023) Light sheet imaging of the human brain (Version draft) [Data set]. DANDI archive. https://doi.org/10.80507/dandi.123456/0.123456.1234
             </li>
           </ol>
         </div>

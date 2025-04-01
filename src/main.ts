@@ -140,11 +140,38 @@ async function activateResultFigure(name: string) {
   nv100.resizeListener();
 }
 
+async function activateOMEZarrFigure() {
+  const scales = ["1", "3", "5"];
+  scales.forEach(async (scale) => {
+    const volumeList = [
+      {
+        url: `/public/lightsheet_ome_zarr/scale_${scale}.nii.gz`,
+        colormap: "gray",
+      },
+    ];
+    const canvas = document.querySelector(
+      `div#ome-zarr.ome-zarr-render > .ome-zarr-render-scale-${scale} > canvas`
+    )! as HTMLCanvasElement;
+    canvas.removeAttribute("hidden");
+    const nv = new Niivue(niiVueDefaults);
+    await nv.attachToCanvas(canvas);
+    await nv.loadVolumes(volumeList);
+    nv.setSliceType(nv.sliceTypeRender);
+    nv.loadMatCapTexture(matCapTexture);
+    await nv.setVolumeRenderIllumination(illumination);
+    nv.setGradientOpacity(0.7);
+    nv.scene.renderAzimuth = 360;
+    nv.scene.renderElevation = 88;
+  });
+}
+
 await activateGradientOrderFigure();
 
-await activateResultFigure("t1w");
-await activateResultFigure("flair");
+// await activateResultFigure("t1w");
+// await activateResultFigure("flair");
 // await activateResultFigure("tof");
 await activateResultFigure("mni152");
-await activateResultFigure("ct");
+// await activateResultFigure("ct");
 // await activateResultFigure("visiblehuman");
+
+await activateOMEZarrFigure();
