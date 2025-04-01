@@ -123,21 +123,22 @@ async function activateResultFigure(name: string) {
     clipPlane: true,
   });
 
-  const width = Math.floor(
-    (parseInt(canvas0.getAttribute("width")!) +
-      parseInt(canvas50.getAttribute("width")!) +
-      parseInt(canvas100.getAttribute("width")!)) /
-      3
-  );
+  // const width = Math.floor(
+  //   (parseInt(canvas0.getAttribute("width")!) +
+  //     parseInt(canvas50.getAttribute("width")!) +
+  //     parseInt(canvas100.getAttribute("width")!)) /
+  //     3
+  // );
+  const width = 500;
   canvas0.setAttribute("width", `${width}`);
   canvas50.setAttribute("width", `${width}`);
   canvas100.setAttribute("width", `${width}`);
   canvas0.setAttribute("height", `${width}`);
   canvas50.setAttribute("height", `${width}`);
   canvas100.setAttribute("height", `${width}`);
-  nv0.resizeListener();
-  nv50.resizeListener();
-  nv100.resizeListener();
+  // nv0.resizeListener();
+  // nv50.resizeListener();
+  // nv100.resizeListener();
 }
 
 async function activateOMEZarrFigure() {
@@ -165,13 +166,13 @@ async function activateOMEZarrFigure() {
   });
 }
 
-await activateGradientOrderFigure();
+// await activateGradientOrderFigure();
 
 // await activateResultFigure("t1w");
 // await activateResultFigure("flair");
 // await activateResultFigure("tof");
-await activateResultFigure("mni152");
+// await activateResultFigure("mni152");
 // await activateResultFigure("ct");
 // await activateResultFigure("visiblehuman");
 
-await activateOMEZarrFigure();
+// await activateOMEZarrFigure();

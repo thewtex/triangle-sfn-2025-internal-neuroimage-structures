@@ -19,7 +19,7 @@ image_files = [
 colors = plt.cm.tab10.colors  # Using matplotlib's default color cycle
 epsilon = 1/(255**2 * 8)
 
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 7))
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 12))
 plt.subplots_adjust(wspace=0.3)
 
 for idx, fname in enumerate(image_files):
@@ -46,7 +46,8 @@ for idx, fname in enumerate(image_files):
     cs_tfm = CubicSpline(x_tfm, hist_tfm)
     ax2.plot(x_tfm, cs_tfm(x_tfm), color=colors[idx])
 
-ax1.set(xlabel='Gradient Magnitude', ylabel='Normalized Frequency',
+# ax1.set(xlabel='Gradient Magnitude', ylabel='Normalized Frequency',
+ax1.set(ylabel='Normalized Frequency',
        title='Raw Gradient Distributions', xlim=(0, 1000), ylim=(0, 0.2))
 ax1.legend(fontsize=9, framealpha=0.9)
 ax1.grid(True, alpha=0.3)

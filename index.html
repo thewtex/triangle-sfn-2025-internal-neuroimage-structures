@@ -119,9 +119,9 @@
             structural boundaries. [2]
           </li>
         </ul>
-      </section>
+      <!-- </section> -->
 
-      <section class="methods">
+      <!-- <section class="methods"> -->
         <h2>Methods</h2>
         <ul>
           <li>
@@ -149,16 +149,14 @@
               </li>
               <li>
                 Optionally uses second-order gradients based on Taylor Series
-                expansion for enhanced detail [3]
-                <div>
-                  $$f^1_0 = \frac{f_{-2} - 8 f_{-1} + 8 f_1 - f_2}{ 12 h }$$
-                </div>
+                expansion for enhanced detail [3]:
+                  \(f^1_0 = \frac{f_{-2} - 8 f_{-1} + 8 f_1 - f_2}{ 12 h }\)
               </li>
             </ul>
           </li>
 
           <figure class="gradient-order-figure">
-            <!-- <img src="/src/assets/gradient-order.png" alt="Gradient Order" /> -->
+            <img src="/src/assets/gradient-order.png" alt="Gradient Order" />
             <div class="gradient-orientation-order-1">
               <canvas height="256" hidden></canvas>
             </div>
@@ -203,6 +201,7 @@
         <h2>Results</h2>
 
         <figure>
+          <img src="/src/assets/t1w.png" alt="T1W" />
           <div id="t1w" class="result-render">
             <div class="result-render-0">
               <canvas height="256" hidden></canvas>
@@ -218,14 +217,15 @@
             <i
               ><b>Figure 2:</b>
               T1-Weighted MRI. Gradient Opacity 0: Only external brain surface
-              visible. Gradient Opacity 0.5: Ventricles and major sulci become
-              visible. Gradient Opacity 1.0: Complete visualization of internal
+              visible.<br> Gradient Opacity 0.5: Ventricles and major sulci become
+              visible.<br> Gradient Opacity 1.0: Complete visualization of internal
               structures.
             </i>
           </figcaption>
         </figure>
 
-        <figure>
+        <!-- <figure>
+          <img src="/src/assets/flair.png" alt="FLAIR" />
           <div id="flair" class="result-render">
             <div class="result-render-0">
               <canvas height="256" hidden></canvas>
@@ -243,9 +243,10 @@
               FLAIR MRI. Emphasize gray/white matter and cortex boundaries.
             </i>
           </figcaption>
-        </figure>
+        </figure> -->
 
         <figure>
+          <img src="/src/assets/tof.png" alt="TOF" />
           <div id="tof" class="result-render">
             <div class="result-render-0">
               <canvas height="256" hidden></canvas>
@@ -259,7 +260,7 @@
           </div>
           <figcaption>
             <i
-              ><b>Figure 4:</b>
+              ><b>Figure 3:</b>
               TOF MRI Angiography. Superior visualization of vascular trees
               within brain tissue.
             </i>
@@ -267,6 +268,7 @@
         </figure>
 
         <figure>
+          <img src="/src/assets/mni152.png" alt="MNI152" />
           <div id="mni152" class="result-render">
             <div class="result-render-0">
               <canvas height="256" hidden></canvas>
@@ -280,13 +282,14 @@
           </div>
           <figcaption>
             <i
-              ><b>Figure 5:</b>
+              ><b>Figure 4:</b>
               MNI-152 Atlas. Enhanced definition of deep brain structures.
             </i>
           </figcaption>
         </figure>
 
         <figure>
+          <img src="/src/assets/ct.png" alt="CT" />
           <div id="ct" class="result-render">
             <div class="result-render-0">
               <canvas height="256" hidden></canvas>
@@ -300,7 +303,7 @@
           </div>
           <figcaption>
             <i
-              ><b>Figure 6:</b>
+              ><b>Figure 5:</b>
               CT electrodes. Precise localization of implanted devices through
               surrounding tissue.
             </i>
@@ -308,6 +311,7 @@
         </figure>
 
         <figure>
+          <img src="/src/assets/visiblehuman.png" alt="Visible Human" />
           <div id="visiblehuman" class="result-render">
             <div class="result-render-0">
               <canvas height="256" hidden></canvas>
@@ -321,33 +325,13 @@
           </div>
           <figcaption>
             <i
-              ><b>Figure 7:</b>
+              ><b>Figure 6:</b>
               Visible Human RGB. Natural color preservation while revealing
               internal structures
             </i>
           </figcaption>
         </figure>
 
-        <figure>
-          <div id="gradient-comparison" >
-            <img
-              src="/src/assets/gradient_comparison.svg"
-              alt="Gradient Comparison"
-              width="100%">
-          </div>
-          <figcaption>
-            <i><b>Figure 8:</b>
-              Comparison of gradient magnitude distributions before and after logarithmic
-              transformation for various neuroimaging datasets. The left panel shows the
-              raw gradient magnitude distributions, with values ranging from 0 to 1000.
-              The right panel displays the transformed gradient magnitudes using the formula
-              \(\log_2(G_x^2 + G_y^2 + G_z^2 + \epsilon) + \log_2(\epsilon)\) where
-              \(\epsilon = 1 / (255^2 \times 8)\). Each dataset is represented by a distinct color,
-              and cubic spline interpolation is applied to smooth the histogram curves. The transformation compresses the wide dynamic range of raw gradients into a more consistent distribution, facilitating visualization and parameterization across datasets.
-              Datasets include CT, FLAIR MRI, MNI152 Atlas, Shear Dataset, T1-weighted MRI, TOF MRI, and Visible Human RGB.
-            </i>
-          </figcaption>
-        </figure>
       </section>
 
       <section class="discussion">
@@ -358,6 +342,19 @@
             Natural structures exhibit gradient magnitudes that follow power-law
             distributions following Zipf's law [6].
           </li>
+          <figure>
+            <div id="gradient-comparison" >
+              <img
+                src="/src/assets/gradient_comparison.svg"
+                alt="Gradient Comparison"
+                width="60%">
+            </div>
+            <figcaption id="gradient-comparison-figcaption">
+              <i><b>Figure 7:</b>
+                Comparison of gradient magnitude distributions before and after logarithmic
+                transformation for various neuroimaging datasets.</i>
+            </figcaption>
+          </figure>
           <li>
             A <strong>logarithmic transformation</strong> is particularly
             well-suited for neuroimaging data as it:
@@ -401,6 +398,9 @@
               </li>
 
               <figure>
+                <div id="lightsheet-img">
+                  <img src="/src/assets/lightsheet.png" alt="OME-Zarr Human Brain Lightsheet Volume" width="40%"/>
+                </div>
                 <div id="ome-zarr" class="ome-zarr-render">
                   <div class="ome-zarr-render-scale-5">
                     <canvas height="256" hidden></canvas>
@@ -413,8 +413,8 @@
                   </div>
                 </div>
                 <figcaption>
-                  <i><b>Figure 9:</b>
-                    OME-Zarr lightsheet human cortex volume [8] rendered at multiple scales.
+                  <i><b>Figure 8:</b>
+                    OME-Zarr lightsheet human cortex volume [8]<br> rendered at multiple scales.
                   </i>
                 </figcaption>
               </figure>
@@ -429,10 +429,8 @@
             clinical applications.
           </li>
         </ul>
-      </section>
 
-      <section class="Conclusion">
-        <h2>Conclusion</h2>
+        <!-- <h2>Conclusion</h2>
         <ul>
           <li>
             <strong>Summary:</strong> NiiVue's gradient opacity implementation
@@ -440,7 +438,7 @@
             visualizing internal brain structures across multiple imaging
             modalities.
           </li>
-        </ul>
+        </ul> -->
         <div class="references">
           <h3>References</h3>
           <ol>
