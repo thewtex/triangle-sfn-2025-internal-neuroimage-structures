@@ -9,7 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@niivue/niivue": "^0.52.0"
+    "@niivue/niivue": "^0.52.0",
+    "mathjax": "^3.2.2"
   },
   "devDependencies": {
     "typescript": "~5.7.2",

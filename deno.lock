@@ -2,6 +2,7 @@
   "version": "4",
   "specifiers": {
     "npm:@niivue/niivue@0.52": "0.52.0",
+    "npm:mathjax@^3.2.2": "3.2.2",
     "npm:typescript@~5.7.2": "5.7.3",
     "npm:vite@^6.2.0": "6.2.3"
   },
@@ -210,6 +211,9 @@
     "gl-matrix@3.4.3": {
       "integrity": "sha512-wcCp8vu8FT22BnvKVPjXa/ICBWRq/zjFfdofZy1WSpQZpphblv12/bOQLBC1rMM7SGOFS9ltVmKOHil5+Ml7gA=="
     },
+    "mathjax@3.2.2": {
+      "integrity": "sha512-Bt+SSVU8eBG27zChVewOicYs7Xsdt40qm4+UpHyX7k0/O9NliPc+x77k1/FEsPsjKPZGJvtRZM1vO+geW0OhGw=="
+    },
     "nanoid@3.3.11": {
       "integrity": "sha512-N8SpfPUnUp1bK+PMYW8qSWdl9U+wwNWI4QKxOYDy9JAro3WMX7p2OeVRF9v+347pnakNevPmiHhNmZ2HbFA76w=="
     },
@@ -277,6 +281,7 @@
     "packageJson": {
       "dependencies": [
         "npm:@niivue/niivue@0.52",
+        "npm:mathjax@^3.2.2",
         "npm:typescript@~5.7.2",
         "npm:vite@^6.2.0"
       ]
