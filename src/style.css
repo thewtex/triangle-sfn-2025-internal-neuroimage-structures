@@ -1,5 +1,5 @@
 :root {
-	--serif: Caslon, Garamond, 'Freight Text', 'Merriweather', serif;
+	--serif: Garamond, 'Freight Text', 'Merriweather', serif;
 	--sans-serif: system-ui, Avenir, 'Nunito Sans', Helvetica, Arial, sans-serif;
 
   font-family: var(--sans-serif);
@@ -16,6 +16,8 @@
 
   --red: #73000a;
   --light-red: #a7000f;
+
+  --gray: #777;
 
   color: var(--black-text);
   background-color: white;
@@ -63,6 +65,10 @@ h2 {
   filter: drop-shadow(0 0 0.15em var(--blue));
 }
 
+canvas {
+  box-shadow: 0 0 0.5em var(--blue);
+}
+
 .header-title {
   display: flex;
   align-items: center;
@@ -72,7 +78,7 @@ h2 {
 .header-subtitle {
   font-size: 0.8em;
   font-weight: 400;
-  color: #777;
+  color: var(--gray);
   /* center-align the text */
   text-align: center;
 }
@@ -96,6 +102,17 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+figure {
+  margin: 2em 0;
+  padding: 0;
+}
+figcaption {
+  font-size: 0.8em;
+  font-weight: 400;
+  color: var(--gray);
+  text-align: center;
 }
 
 button {
