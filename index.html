@@ -100,7 +100,7 @@
             <strong>NiiVue Capabilities:</strong>
             <ul>
               <li>
-                NiiVue is a web-based visualization tool for neuroimaging that
+                NiiVue [1] is a web-based visualization tool for neuroimaging that
                 runs on any operating system and web device (phone, tablet,
                 computer).
               </li>
@@ -115,7 +115,7 @@
             <strong>Gradient Opacity Role:</strong> Traditional volume rendering
             often obscures internal structures behind high-intensity regions;
             gradient opacity allows visualization through tissue based on
-            structural boundaries.
+            structural boundaries. [2]
           </li>
         </ul>
       </section>
@@ -143,7 +143,7 @@
               </li>
               <li>
                 Optionally uses second-order gradients based on Taylor Series
-                expansion for enhanced detail
+                expansion for enhanced detail [3]
               </li>
             </ul>
           </li>
@@ -157,8 +157,7 @@
               <canvas height="256" hidden></canvas>
             </div>
             <figcaption>
-              <i
-                ><b>Figure 1:</b> While first-order gradients are sufficient for
+              <i><b>Figure 1:</b> While first-order gradients are sufficient for
                 orientations, second-order gradient magnitudes sometimes help
                 resolve fine structural elements. Gradient orientations
                 visualized on a CT brain with embedded test objects. Gradient
@@ -168,7 +167,7 @@
           </figure>
 
           <li>
-            <strong>Real-Time, GPGPU Performance:</strong>
+            <strong>Real-Time, GPGPU Performance [4]:</strong>
             <ul>
               <li>
                 Pre-computes gradients using WebGL2 fragment shaders for
@@ -333,7 +332,7 @@
             A <strong>logarithmic transformation</strong> is particularly
             well-suited for neuroimaging data as it:
             <ul>
-              <li>Compresses the wide dynamic range of gradient magnitudes</li>
+              <li>Compresses the wide dynamic range of gradient magnitudes following Zipf's law [6]</li>
               <li>
                 Emphasizes subtle structural boundaries within similar intensity
                 regions
@@ -344,7 +343,7 @@
           <li>
             <strong>Ultrasound Comparison:</strong> Similar logarithmic
             transformations are standard in B-mode ultrasound imaging, where
-            power-law distributions are well-documented in tissue interactions.
+            power-law distributions are well-documented in tissue interactions [5].
           </li>
           <li>
             <strong>User Interface Considerations:</strong>
@@ -367,12 +366,12 @@
             handle datasets from microscopic to macroscopic scales:
             <ul>
               <li>
-                Will support terabyte-scale OME-Zarr imaging datasets in future
+                Will support terabyte-scale OME-Zarr [7] imaging datasets in future
                 work
               </li>
               <li>
                 Maintain consistent visualization from subcellular to
-                whole-brain volumes
+                whole-brain volumes [6]
               </li>
             </ul>
             Additionally, develop techniques that focus on AI-identified
@@ -403,8 +402,24 @@
               >
             </li>
             <li>
-              Parker, K.J. (2022). Power laws prevail in ultrasound-tissue
-              interactions. PMC, 9118335.
+              Engel, K., Hadwiger, M., Kniss, J. M., & Rezk-Salama, C. (2006). Local volume illumination. In Real-time volume graphics (pp. 47-52). Eurographics Association. Retrieved April 1, 2025, from <a href="https://webdocs.cs.ualberta.ca/~pierreb/Visualization2006/Real-Time-Volume-Rendering.pdf">https://webdocs.cs.ualberta.ca/~pierreb/Visualization2006/Real-Time-Volume-Rendering.pdf</a>
+            </li>
+            <li>
+              Khan, IR and Ohba, Ryoji. Closed-form expressions for the finite difference approximations
+of first and higher derivatives based on Taylor series. Journal of Computational and Applied
+Mathematics, 107:179–193, 1999. <a href="https://doi.org/10.1016/S0377-0427(99)00088-6">https://doi.org/10.1016/S0377-0427(99)00088-6</a>.
+            </li>
+            <li>
+              Ikits, M., Kniss, J., Lefohn, A., & Hansen, C. (2004). Volume rendering techniques. In R. Fernando (Ed.), GPU Gems: Programming Techniques, Tips, and Tricks for Real-Time Graphics (pp. 667-690). Addison-Wesley. Retrieved April 1, 2025, from <a href="https://developer.nvidia.com/gpugems/gpugems/part-vi-beyond-triangles/chapter-39-volume-rendering-techniques">https://developer.nvidia.com/gpugems/gpugems/part-vi-beyond-triangles/chapter-39-volume-rendering-techniques</a>
+            </li>
+            <li>
+              Parker, K.J. (2022). Power laws prevail in ultrasound-tissue interactions. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9118335/">PMC, 9118335</a>.
+            </li>
+            <li>
+              Roman Sabin and Bertolotti Francesco (2022). A master equation for power laws. R. Soc. Open Sci.9220531. <a href="https://royalsocietypublishing.org/doi/10.1098/rsos.220531">https://royalsocietypublishing.org/doi/10.1098/rsos.220531</a>
+            </li>
+            <li>
+              Moore, J., Basurto-Lozada, D., Besson, S. et al. OME-Zarr: a cloud-optimized bioimaging file format with international community support. Histochem Cell Biol 160, 223-251 (2023). <a href="https://doi.org/10.1007/s00418-023-02209-1">https://doi.org/10.1007/s00418-023-02209-1</a>
             </li>
           </ol>
         </div>
