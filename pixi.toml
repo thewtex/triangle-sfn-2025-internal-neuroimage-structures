@@ -1,0 +1,18 @@
+[project]
+authors = ["Matt McCormick <matt@fideus.io>"]
+channels = ["conda-forge"]
+name = "triangle-sfn-2025-internal-neuroimage-structures"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[dependencies]
+python = ">=3.13.2,<3.14"
+deno = ">=2.2.5,<2.3"
+matplotlib = ">=3.10.1,<4"
+scipy = ">=1.15.2,<2"
+
+[pypi-dependencies]
+itk-filtering = ">=5.4.3, <6"
+
+[tasks]
+distribution-figure = { cmd = "python src/magnitude-distribution.py", description = "Generate magnitude distribution figure" }

@@ -135,6 +135,7 @@
                 <div>
                   $$o = \left( \log_2\left(G_x^2 + G_y^2 + G_z^2 + \frac{1}{255^2 \cdot 8}\right) + \log_2\left(\frac{1}{255^2 \cdot 8}\right) \right)^{8.0}$$
                 </div>
+                Where final exponentiation to 8.0 adds translucency to rendering.
               </li>
             </ul>
           </li>
@@ -323,6 +324,27 @@
               ><b>Figure 7:</b>
               Visible Human RGB. Natural color preservation while revealing
               internal structures
+            </i>
+          </figcaption>
+        </figure>
+
+        <figure>
+          <div id="gradient-comparison" >
+            <img
+              src="/src/assets/gradient_comparison.svg"
+              alt="Gradient Comparison"
+              width="100%">
+          </div>
+          <figcaption>
+            <i><b>Figure 8:</b>
+              Comparison of gradient magnitude distributions before and after logarithmic
+              transformation for various neuroimaging datasets. The left panel shows the
+              raw gradient magnitude distributions, with values ranging from 0 to 1000.
+              The right panel displays the transformed gradient magnitudes using the formula
+              \(\log_2(G_x^2 + G_y^2 + G_z^2 + \epsilon) + \log_2(\epsilon)\) where
+              \(\epsilon = 1 / (255^2 \times 8)\). Each dataset is represented by a distinct color,
+              and cubic spline interpolation is applied to smooth the histogram curves. The transformation compresses the wide dynamic range of raw gradients into a more consistent distribution, facilitating visualization and parameterization across datasets.
+              Datasets include CT, FLAIR MRI, MNI152 Atlas, Shear Dataset, T1-weighted MRI, TOF MRI, and Visible Human RGB.
             </i>
           </figcaption>
         </figure>
