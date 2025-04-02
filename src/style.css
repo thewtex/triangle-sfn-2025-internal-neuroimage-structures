@@ -200,25 +200,12 @@ button:focus-visible {
 .discussion { grid-area: discussion; }
 .footer { grid-area: footer; }
 
-@media screen and (max-width: 900px) {
-  .poster {
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-      "header header"
-      "intro intro"
-      "results results"
-      "results results"
-      "discussion discussion"
-      "footer footer";
-  }
-}
-
 .references {
   font-size: 0.6em;
   font-weight: 200;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 2500px) {
   .poster {
     grid-template-columns: 1fr;
     grid-template-areas:
