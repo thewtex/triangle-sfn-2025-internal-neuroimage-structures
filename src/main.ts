@@ -6,7 +6,10 @@ const niiVueDefaults = {
   backColor: [0.3, 0.3, 0.5, 1],
   show3Dcrosshair: false,
   loglevel: "debug",
-  gradientOrder: 2,
+  gradientOrder: 1,
+  gradientOpacity: 0.5,
+  clipPlaneColor: [1, 0, 0, 0.0],
+  isResizeCanvas: true,
 };
 const illumination = 0.5;
 const matCapTexture = "/Cream.jpg";
@@ -19,131 +22,216 @@ async function activateGradientOrderFigure(figureElement: HTMLElement) {
   )! as HTMLDivElement;
   interactivePreview.style.display = "none";
 
+  const order1Container = figureElement.querySelector(
+    ".gradient-orientation-order-1"
+  )! as HTMLDivElement;
+  const order2Container = figureElement.querySelector(
+    ".gradient-orientation-order-2"
+  )! as HTMLDivElement;
+  order1Container.style.display = "block";
+  order2Container.style.display = "block";
+  const renderWidth = 192;
+  const renderHeight = 192;
+  order1Container.style.width = `${renderWidth}px`;
+  order1Container.style.height = `${renderHeight}px`;
+  order2Container.style.width = `${renderWidth}px`;
+  order2Container.style.height = `${renderHeight}px`;
+
+  const canvas1 = document.createElement("canvas");
+  const canvas2 = document.createElement("canvas");
+  order1Container.appendChild(canvas1);
+  order2Container.appendChild(canvas2);
+  canvas1.setAttribute("width", "${renderWidth}");
+  canvas2.setAttribute("width", "${renderWidth}");
+  canvas1.setAttribute("height", "${renderHeight}");
+  canvas2.setAttribute("height", "${renderHeight}");
+
   const volumeList = [{ url: "/shear.nii.gz", colormap: "gray" }];
   const azimuth = 132;
   const elevation = -1;
 
-  const gradientOrientationOrder1Canvas = document.querySelector(
-    ".gradient-orientation-order-1 > canvas"
-  )! as HTMLCanvasElement;
-  gradientOrientationOrder1Canvas.removeAttribute("hidden");
-  const gradientOrientationOrder1Nv = new Niivue(niiVueDefaults);
-  await gradientOrientationOrder1Nv.attachToCanvas(
-    gradientOrientationOrder1Canvas
-  );
-  await gradientOrientationOrder1Nv.loadVolumes(volumeList);
-  gradientOrientationOrder1Nv.opts.gradientOrder = 1;
-  gradientOrientationOrder1Nv.setClipPlane(clipPlane);
-  gradientOrientationOrder1Nv.setClipPlaneColor(clipPlaneColor);
-  gradientOrientationOrder1Nv.scene.renderAzimuth = azimuth;
-  gradientOrientationOrder1Nv.scene.renderElevation = elevation;
-  gradientOrientationOrder1Nv.setSliceType(
-    gradientOrientationOrder1Nv.sliceTypeRender
-  );
-  await gradientOrientationOrder1Nv.setVolumeRenderIllumination(NaN);
+  const order1Nv = new Niivue(niiVueDefaults);
+  await order1Nv.attachToCanvas(canvas1);
+  await order1Nv.loadVolumes(volumeList);
+  order1Nv.opts.gradientOrder = 1;
+  order1Nv.setClipPlane(clipPlane);
+  order1Nv.scene.renderAzimuth = azimuth;
+  order1Nv.scene.renderElevation = elevation;
+  order1Nv.setSliceType(order1Nv.sliceTypeRender);
+  await order1Nv.setVolumeRenderIllumination(NaN);
 
-  const gradientOrientationOrder2Canvas = document.querySelector(
-    ".gradient-orientation-order-2 > canvas"
-  )! as HTMLCanvasElement;
-  gradientOrientationOrder2Canvas.removeAttribute("hidden");
-  const gradientOrientationOrder2Nv = new Niivue(niiVueDefaults);
-  await gradientOrientationOrder2Nv.attachToCanvas(
-    gradientOrientationOrder2Canvas
-  );
-  await gradientOrientationOrder2Nv.loadVolumes(volumeList);
-  gradientOrientationOrder2Nv.opts.gradientOrder = 2;
-  gradientOrientationOrder2Nv.setClipPlane(clipPlane);
-  gradientOrientationOrder2Nv.setClipPlaneColor(clipPlaneColor);
-  gradientOrientationOrder2Nv.scene.renderAzimuth = azimuth;
-  gradientOrientationOrder2Nv.scene.renderElevation = elevation;
-  gradientOrientationOrder2Nv.setSliceType(
-    gradientOrientationOrder2Nv.sliceTypeRender
-  );
-  await gradientOrientationOrder2Nv.setVolumeRenderIllumination(NaN);
+  const order2Nv = new Niivue(niiVueDefaults);
+  await order2Nv.attachToCanvas(canvas2);
+  await order2Nv.loadVolumes(volumeList);
+  order2Nv.opts.gradientOrder = 2;
+  order2Nv.setClipPlane(clipPlane);
+  order2Nv.setClipPlaneColor(clipPlaneColor);
+  order2Nv.scene.renderAzimuth = azimuth;
+  order2Nv.scene.renderElevation = elevation;
+  order2Nv.setSliceType(order2Nv.sliceTypeRender);
+  await order2Nv.setVolumeRenderIllumination(NaN);
 
-  gradientOrientationOrder1Nv.broadcastTo([gradientOrientationOrder2Nv], {
-    "3d": true,
-    clipPlane: true,
-  });
-  gradientOrientationOrder2Nv.broadcastTo([gradientOrientationOrder1Nv], {
-    "3d": true,
-    clipPlane: true,
-  });
+  // order1Nv.broadcastTo([order2Nv], {
+  //   "3d": true,
+  //   clipPlane: true,
+  // });
+  // order2Nv.broadcastTo([order1Nv], {
+  //   "3d": true,
+  //   clipPlane: true,
+  // });
+}
+function deactivateGradientOrderFigure(figureElement: HTMLElement) {
+  const interactivePreview = figureElement.querySelector(
+    ".interactive-preview-container"
+  )! as HTMLDivElement;
+  interactivePreview.style.display = "block";
+  const order1Container = figureElement.querySelector(
+    ".gradient-orientation-order-1"
+  )! as HTMLDivElement;
+  const order2Container = figureElement.querySelector(
+    ".gradient-orientation-order-2"
+  )! as HTMLDivElement;
+  order1Container.style.display = "none";
+  order2Container.style.display = "none";
+  const order1Canvas = order1Container.querySelector(
+    "canvas"
+  )! as HTMLCanvasElement;
+  const order2Canvas = order2Container.querySelector(
+    "canvas"
+  )! as HTMLCanvasElement;
+  order1Container.removeChild(order1Canvas);
+  order2Container.removeChild(order2Canvas);
 }
 
 async function activateResultFigure(name: string) {
+  const figureElement = document.querySelector(
+    `#${name}-figure`
+  )! as HTMLElement;
+
+  const interactivePreview = figureElement.querySelector(
+    ".interactive-preview-container"
+  )! as HTMLDivElement;
+  interactivePreview.style.display = "none";
+
+  const render0Container = figureElement.querySelector(
+    ".result-render-0"
+  )! as HTMLDivElement;
+  const render50Container = figureElement.querySelector(
+    ".result-render-50"
+  )! as HTMLDivElement;
+  const render100Container = figureElement.querySelector(
+    ".result-render-100"
+  )! as HTMLDivElement;
+  render0Container.style.display = "block";
+  render50Container.style.display = "block";
+  render100Container.style.display = "block";
+  const renderWidth = 192;
+  const renderHeight = 192;
+  render0Container.style.width = `${renderWidth}px`;
+  render50Container.style.width = `${renderWidth}px`;
+  render100Container.style.width = `${renderWidth}px`;
+  render0Container.style.height = `${renderHeight}px`;
+  render50Container.style.height = `${renderHeight}px`;
+  render100Container.style.height = `${renderHeight}px`;
+  const canvas0 = document.createElement("canvas");
+  const canvas50 = document.createElement("canvas");
+  const canvas100 = document.createElement("canvas");
+  render0Container.appendChild(canvas0);
+  render50Container.appendChild(canvas50);
+  render100Container.appendChild(canvas100);
+  canvas0.setAttribute("width", `${renderWidth}`);
+  canvas50.setAttribute("width", `${renderWidth}`);
+  canvas100.setAttribute("width", `${renderWidth}`);
+  canvas0.setAttribute("height", `${renderHeight}`);
+  canvas50.setAttribute("height", `${renderHeight}`);
+  canvas100.setAttribute("height", `${renderHeight}`);
+
   const volumeList = [{ url: `${name}.nii.gz`, colormap: "gray" }];
 
-  const canvas0 = document.querySelector(
-    `div#${name}.result-render > .result-render-0 > canvas`
-  )! as HTMLCanvasElement;
-  canvas0.removeAttribute("hidden");
   const nv0 = new Niivue(niiVueDefaults);
   await nv0.attachToCanvas(canvas0);
   await nv0.loadVolumes(volumeList);
   nv0.setClipPlane(clipPlane);
-  nv0.setClipPlaneColor(clipPlaneColor);
   nv0.setSliceType(nv0.sliceTypeRender);
   nv0.loadMatCapTexture(matCapTexture);
   await nv0.setVolumeRenderIllumination(illumination);
 
-  const canvas50 = document.querySelector(
-    `div#${name}.result-render > .result-render-50 > canvas`
-  )! as HTMLCanvasElement;
-  canvas50.removeAttribute("hidden");
   const nv50 = new Niivue(niiVueDefaults);
   await nv50.attachToCanvas(canvas50);
   await nv50.loadVolumes(volumeList);
   nv50.setClipPlane(clipPlane);
-  nv50.setClipPlaneColor(clipPlaneColor);
   nv50.setSliceType(nv50.sliceTypeRender);
   nv50.loadMatCapTexture(matCapTexture);
   await nv50.setVolumeRenderIllumination(illumination);
   nv50.setGradientOpacity(0.5);
 
-  const canvas100 = document.querySelector(
-    `div#${name}.result-render > .result-render-100 > canvas`
-  )! as HTMLCanvasElement;
   canvas100.removeAttribute("hidden");
   const nv100 = new Niivue(niiVueDefaults);
   await nv100.attachToCanvas(canvas100);
   await nv100.loadVolumes(volumeList);
   nv100.setClipPlane(clipPlane);
-  nv100.setClipPlaneColor(clipPlaneColor);
   nv100.setSliceType(nv100.sliceTypeRender);
   nv100.loadMatCapTexture(matCapTexture);
   await nv100.setVolumeRenderIllumination(illumination);
   nv100.setGradientOpacity(1.0);
 
-  nv0.broadcastTo([nv50, nv100], {
-    "3d": true,
-    clipPlane: true,
-  });
-  nv50.broadcastTo([nv0, nv100], {
-    "3d": true,
-    clipPlane: true,
-  });
-  nv100.broadcastTo([nv0, nv50], {
-    "3d": true,
-    clipPlane: true,
-  });
+  // nv0.broadcastTo([nv50, nv100], {
+  //   "3d": true,
+  //   clipPlane: true,
+  // });
+  // nv50.broadcastTo([nv0, nv100], {
+  //   "3d": true,
+  //   clipPlane: true,
+  // });
+  // nv100.broadcastTo([nv0, nv50], {
+  //   "3d": true,
+  //   clipPlane: true,
+  // });
 
-  // const width = Math.floor(
-  //   (parseInt(canvas0.getAttribute("width")!) +
-  //     parseInt(canvas50.getAttribute("width")!) +
-  //     parseInt(canvas100.getAttribute("width")!)) /
-  //     3
-  // );
-  const width = 500;
-  canvas0.setAttribute("width", `${width}`);
-  canvas50.setAttribute("width", `${width}`);
-  canvas100.setAttribute("width", `${width}`);
-  canvas0.setAttribute("height", `${width}`);
-  canvas50.setAttribute("height", `${width}`);
-  canvas100.setAttribute("height", `${width}`);
-  // nv0.resizeListener();
-  // nv50.resizeListener();
-  // nv100.resizeListener();
+  const renderContainer = figureElement.querySelector(
+    ".result-render"
+  )! as HTMLDivElement;
+  const computedStyle = window.getComputedStyle(renderContainer);
+  const width = Math.floor((parseInt(computedStyle.width) * 0.9) / 3);
+  render0Container.style.width = `${width}px`;
+  render0Container.style.height = `${width}px`;
+  render50Container.style.width = `${width}px`;
+  render50Container.style.height = `${width}px`;
+  render100Container.style.width = `${width}px`;
+  render100Container.style.height = `${width}px`;
+}
+function deactivateResultFigure(name: string) {
+  const figureElement = document.querySelector(
+    `#${name}-figure`
+  )! as HTMLElement;
+  const interactivePreview = figureElement.querySelector(
+    ".interactive-preview-container"
+  )! as HTMLDivElement;
+  interactivePreview.style.display = "block";
+  const render0Container = figureElement.querySelector(
+    ".result-render-0"
+  )! as HTMLDivElement;
+  const render50Container = figureElement.querySelector(
+    ".result-render-50"
+  )! as HTMLDivElement;
+  const render100Container = figureElement.querySelector(
+    ".result-render-100"
+  )! as HTMLDivElement;
+  render0Container.style.display = "none";
+  render50Container.style.display = "none";
+  render100Container.style.display = "none";
+  const render0Canvas = render0Container.querySelector(
+    "canvas"
+  )! as HTMLCanvasElement;
+  const render50Canvas = render50Container.querySelector(
+    "canvas"
+  )! as HTMLCanvasElement;
+  const render100Canvas = render100Container.querySelector(
+    "canvas"
+  )! as HTMLCanvasElement;
+  render0Container.removeChild(render0Canvas);
+  render50Container.removeChild(render50Canvas);
+  render100Container.removeChild(render100Canvas);
 }
 
 async function activateOMEZarrFigure() {
@@ -171,36 +259,53 @@ async function activateOMEZarrFigure() {
   });
 }
 
-// await activateGradientOrderFigure();
-
-// await activateResultFigure("t1w");
-// await activateResultFigure("flair");
-// await activateResultFigure("tof");
-// await activateResultFigure("mni152");
-// await activateResultFigure("ct");
-// await activateResultFigure("visiblehuman");
-
 // await activateOMEZarrFigure();
 
-const activatedFigures = {
-  gradientOrder: false,
-  t1w: false,
-  // flair: false,
-  tof: false,
-  mni152: false,
-  ct: false,
-  visiblehuman: false,
-  omeZarr: false,
-};
+const activatedFigures = new Map<string, boolean>();
+activatedFigures.set("gradient-order", false);
+activatedFigures.set("t1w", false);
+// activatedFigures.set("flair", false);
+activatedFigures.set("tof", false);
+activatedFigures.set("mni152", false);
+activatedFigures.set("ct", false);
+activatedFigures.set("visiblehuman", false);
+activatedFigures.set("ome-zarr", false);
 
+function deactivateFigure(name: string, figureElement: HTMLElement) {
+  switch (name) {
+    case "gradient-order":
+      deactivateGradientOrderFigure(figureElement);
+      break;
+    case "t1w":
+    case "flair":
+    case "tof":
+    case "mni152":
+    case "ct":
+    case "visiblehuman":
+      deactivateResultFigure(name);
+      break;
+    // const canvas = figureElement.querySelector("canvas")! as HTMLCanvasElement;
+    // const nv = new Niivue(niiVueDefaults);
+    // nv.detachFromCanvas(canvas);
+    // nv.destroy();
+    // canvas.setAttribute("hidden", "true");
+  }
+}
 async function activateFigure(name: string, figureElement: HTMLElement) {
-  if (activatedFigures[name]) {
+  if (activatedFigures.get(name)) {
     return;
   }
-  activatedFigures[name] = true;
+  // deactivate all other figures
+  activatedFigures.forEach((value, key) => {
+    if (key !== name && value) {
+      deactivateFigure(key, document.querySelector(`#${key}-figure`)!);
+      activatedFigures.set(key, false);
+    }
+  });
+  activatedFigures.set(name, true);
 
   switch (name) {
-    case "gradientOrder":
+    case "gradient-order":
       await activateGradientOrderFigure(figureElement);
       break;
     case "t1w":
@@ -221,15 +326,24 @@ async function activateFigure(name: string, figureElement: HTMLElement) {
     case "visiblehuman":
       await activateResultFigure("visiblehuman");
       break;
-    case "omeZarr":
+    case "ome-zarr":
       await activateOMEZarrFigure();
       break;
   }
 }
 
 const gradientOrderPreview = document.querySelector(
-  ".gradient-order-figure > div.interactive-preview-container"
+  "#gradient-order-figure > div.interactive-preview-container"
 )! as HTMLDivElement;
 gradientOrderPreview.addEventListener("click", () => {
-  activateFigure("gradientOrder", gradientOrderPreview.parentElement!);
+  activateFigure("gradient-order", gradientOrderPreview.parentElement!);
+});
+
+["t1w", "tof", "mni152", "ct", "visiblehuman"].forEach((name) => {
+  const preview = document.querySelector(
+    `#${name}-figure > div.interactive-preview-container`
+  )! as HTMLDivElement;
+  preview.addEventListener("click", () => {
+    activateFigure(name, preview.parentElement!);
+  });
 });

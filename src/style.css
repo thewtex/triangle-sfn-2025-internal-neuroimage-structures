@@ -148,7 +148,12 @@ figcaption {
     margin-left: auto;
     margin-right: auto;
 }
-.interactive-preview-container img {
+#gradient-order-figure > div {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+#gradient-order-figure > div > img {
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -257,13 +262,13 @@ button:focus-visible {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.0);
   color: var(--white-text);
   font-weight: bold;
   cursor: pointer;
   transition: opacity 0.3s;
   text-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
-  opacity: 0.25;
+  opacity: 0.35;
 }
 
 .interactive-preview-container:hover .click-to-interact-overlay {
