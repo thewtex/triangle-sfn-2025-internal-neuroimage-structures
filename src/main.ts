@@ -7,6 +7,9 @@ const niiVueDefaults = {
   show3Dcrosshair: false,
   loglevel: "debug",
   gradientOrder: 2,
+  gradientOpacity: 0.5,
+  clipPlaneColor: [1, 0, 0, 0.0],
+  isResizeCanvas: true,
 };
 const illumination = 0.5;
 const matCapTexture = "/Cream.jpg";
@@ -19,56 +22,83 @@ async function activateGradientOrderFigure(figureElement: HTMLElement) {
   )! as HTMLDivElement;
   interactivePreview.style.display = "none";
 
+  // get all the canvas elements in the figureElement
+  // const canvasElements = figureElement.querySelectorAll("canvas");
+  // canvasElements.forEach((canvas) => {
+  //   canvas.removeAttribute("hidden");
+  //   canvas.setAttribute("width", "500");
+  //   canvas.setAttribute("height", "500");
+  // });
+  const order1Container = figureElement.querySelector(
+    ".gradient-orientation-order-1"
+  )! as HTMLDivElement;
+  const order2Container = figureElement.querySelector(
+    ".gradient-orientation-order-2"
+  )! as HTMLDivElement;
+  order1Container.style.display = "block";
+  order2Container.style.display = "block";
+  // set the order1 and order2 containers to be 256px tall and 100% wide
+  order1Container.style.height = "256px";
+  order1Container.style.width = "100%";
+  order2Container.style.height = "256px";
+  order2Container.style.width = "100%";
+
+  // create the canvas elements, append them to the order1Container and order2Container
+  // set their width to the container width and their height to 256
+  const canvas1 = document.createElement("canvas");
+  const canvas2 = document.createElement("canvas");
+  order1Container.appendChild(canvas1);
+  order2Container.appendChild(canvas2);
+
   const volumeList = [{ url: "/shear.nii.gz", colormap: "gray" }];
   const azimuth = 132;
   const elevation = -1;
 
-  const gradientOrientationOrder1Canvas = document.querySelector(
-    ".gradient-orientation-order-1 > canvas"
-  )! as HTMLCanvasElement;
-  gradientOrientationOrder1Canvas.removeAttribute("hidden");
-  const gradientOrientationOrder1Nv = new Niivue(niiVueDefaults);
-  await gradientOrientationOrder1Nv.attachToCanvas(
-    gradientOrientationOrder1Canvas
+  // const gradientOrientationOrder1Canvas = document.querySelector(
+  //   ".gradient-orientation-order-1 > canvas"
+  // )! as HTMLCanvasElement;
+  const order1Nv = new Niivue(niiVueDefaults);
+  await order1Nv.attachToCanvas(
+    canvas1
   );
-  await gradientOrientationOrder1Nv.loadVolumes(volumeList);
-  gradientOrientationOrder1Nv.opts.gradientOrder = 1;
-  gradientOrientationOrder1Nv.setClipPlane(clipPlane);
-  gradientOrientationOrder1Nv.setClipPlaneColor(clipPlaneColor);
-  gradientOrientationOrder1Nv.scene.renderAzimuth = azimuth;
-  gradientOrientationOrder1Nv.scene.renderElevation = elevation;
-  gradientOrientationOrder1Nv.setSliceType(
-    gradientOrientationOrder1Nv.sliceTypeRender
+  await order1Nv.loadVolumes(volumeList);
+  order1Nv.opts.gradientOrder = 1;
+  order1Nv.setClipPlane(clipPlane);
+  order1Nv.scene.renderAzimuth = azimuth;
+  order1Nv.scene.renderElevation = elevation;
+  order1Nv.setSliceType(
+    order1Nv.sliceTypeRender
   );
-  await gradientOrientationOrder1Nv.setVolumeRenderIllumination(NaN);
+  order1Nv.gradientGL(order1Nv.volumes[0]);
+  await order1Nv.setGradientOpacity(0.5);
+  // await order1Nv.setVolumeRenderIllumination(NaN);
 
-  const gradientOrientationOrder2Canvas = document.querySelector(
-    ".gradient-orientation-order-2 > canvas"
-  )! as HTMLCanvasElement;
-  gradientOrientationOrder2Canvas.removeAttribute("hidden");
-  const gradientOrientationOrder2Nv = new Niivue(niiVueDefaults);
-  await gradientOrientationOrder2Nv.attachToCanvas(
-    gradientOrientationOrder2Canvas
-  );
-  await gradientOrientationOrder2Nv.loadVolumes(volumeList);
-  gradientOrientationOrder2Nv.opts.gradientOrder = 2;
-  gradientOrientationOrder2Nv.setClipPlane(clipPlane);
-  gradientOrientationOrder2Nv.setClipPlaneColor(clipPlaneColor);
-  gradientOrientationOrder2Nv.scene.renderAzimuth = azimuth;
-  gradientOrientationOrder2Nv.scene.renderElevation = elevation;
-  gradientOrientationOrder2Nv.setSliceType(
-    gradientOrientationOrder2Nv.sliceTypeRender
-  );
-  await gradientOrientationOrder2Nv.setVolumeRenderIllumination(NaN);
+  // const order2Canvas = document.querySelector(
+  //   ".gradient-orientation-order-2 > canvas"
+  // )! as HTMLCanvasElement;
+  // const order2Nv = new Niivue(niiVueDefaults);
+  // await order2Nv.attachToCanvas(
+  //   order2Canvas
+  // );
+  // await order2Nv.loadVolumes(volumeList);
+  // order2Nv.opts.gradientOrder = 2;
+  // order2Nv.setClipPlane(clipPlane);
+  // order2Nv.setClipPlaneColor(clipPlaneColor);
+  // order2Nv.scene.renderAzimuth = azimuth;
+  // order2Nv.scene.renderElevation = elevation;
+  // order2Nv.setSliceType(
+  //   order2Nv.sliceTypeRender
+  // );
+  // await order2Nv.setVolumeRenderIllumination(NaN);
 
-  gradientOrientationOrder1Nv.broadcastTo([gradientOrientationOrder2Nv], {
-    "3d": true,
-    clipPlane: true,
-  });
-  gradientOrientationOrder2Nv.broadcastTo([gradientOrientationOrder1Nv], {
-    "3d": true,
-    clipPlane: true,
-  });
+  // order1Nv.broadcastTo([order2Nv], {
+  //   "3d": true,
+  //   clipPlane: true,
+  // });
+  // order2Nv.broadcastTo([order1Nv], {
+  //   "3d": true,
+  //   clipPlane: true,
+  // });
 }
 
 async function activateResultFigure(name: string) {
