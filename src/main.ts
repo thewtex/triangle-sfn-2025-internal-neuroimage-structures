@@ -13,7 +13,12 @@ const matCapTexture = "/Cream.jpg";
 const clipPlaneColor = [1, 0, 0, 0.0];
 const clipPlane = [0.25, 250, 0];
 
-async function activateGradientOrderFigure() {
+async function activateGradientOrderFigure(figureElement: HTMLElement) {
+  const interactivePreview = figureElement.querySelector(
+    ".interactive-preview-container"
+  )! as HTMLDivElement;
+  interactivePreview.style.display = "none";
+
   const volumeList = [{ url: "/shear.nii.gz", colormap: "gray" }];
   const azimuth = 132;
   const elevation = -1;
@@ -176,3 +181,55 @@ async function activateOMEZarrFigure() {
 // await activateResultFigure("visiblehuman");
 
 // await activateOMEZarrFigure();
+
+const activatedFigures = {
+  gradientOrder: false,
+  t1w: false,
+  // flair: false,
+  tof: false,
+  mni152: false,
+  ct: false,
+  visiblehuman: false,
+  omeZarr: false,
+};
+
+async function activateFigure(name: string, figureElement: HTMLElement) {
+  if (activatedFigures[name]) {
+    return;
+  }
+  activatedFigures[name] = true;
+
+  switch (name) {
+    case "gradientOrder":
+      await activateGradientOrderFigure(figureElement);
+      break;
+    case "t1w":
+      await activateResultFigure("t1w");
+      break;
+    case "flair":
+      await activateResultFigure("flair");
+      break;
+    case "tof":
+      await activateResultFigure("tof");
+      break;
+    case "mni152":
+      await activateResultFigure("mni152");
+      break;
+    case "ct":
+      await activateResultFigure("ct");
+      break;
+    case "visiblehuman":
+      await activateResultFigure("visiblehuman");
+      break;
+    case "omeZarr":
+      await activateOMEZarrFigure();
+      break;
+  }
+}
+
+const gradientOrderPreview = document.querySelector(
+  ".gradient-order-figure > div.interactive-preview-container"
+)! as HTMLDivElement;
+gradientOrderPreview.addEventListener("click", () => {
+  activateFigure("gradientOrder", gradientOrderPreview.parentElement!);
+});
