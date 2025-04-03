@@ -148,12 +148,12 @@ figcaption {
     margin-left: auto;
     margin-right: auto;
 }
-#gradient-order-figure > div {
+figure > div.interactive-preview-container {
     display: block;
     margin-left: auto;
     margin-right: auto;
 }
-#gradient-order-figure > div > img {
+figure > div.interactive-preview-container > img {
     display: block;
     margin-left: auto;
     margin-right: auto;
