@@ -13,7 +13,6 @@ const niiVueDefaults = {
 };
 const illumination = 0.5;
 const matCapTexture = "/Cream.jpg";
-const clipPlaneColor = [1, 0, 0, 0.0];
 const clipPlane = [0.25, 250, 0];
 
 async function activateGradientOrderFigure(figureElement: HTMLElement) {
@@ -65,7 +64,6 @@ async function activateGradientOrderFigure(figureElement: HTMLElement) {
   await order2Nv.loadVolumes(volumeList);
   order2Nv.opts.gradientOrder = 2;
   order2Nv.setClipPlane(clipPlane);
-  order2Nv.setClipPlaneColor(clipPlaneColor);
   order2Nv.scene.renderAzimuth = azimuth;
   order2Nv.scene.renderElevation = elevation;
   order2Nv.setSliceType(order2Nv.sliceTypeRender);
@@ -284,11 +282,8 @@ function deactivateFigure(name: string, figureElement: HTMLElement) {
     case "visiblehuman":
       deactivateResultFigure(name);
       break;
-    // const canvas = figureElement.querySelector("canvas")! as HTMLCanvasElement;
-    // const nv = new Niivue(niiVueDefaults);
-    // nv.detachFromCanvas(canvas);
-    // nv.destroy();
-    // canvas.setAttribute("hidden", "true");
+    default:
+      console.warn(`Unknown figure name: ${name}`);
   }
 }
 async function activateFigure(name: string, figureElement: HTMLElement) {
@@ -338,7 +333,6 @@ const gradientOrderPreview = document.querySelector(
 gradientOrderPreview.addEventListener("click", () => {
   activateFigure("gradient-order", gradientOrderPreview.parentElement!);
 });
-
 ["t1w", "tof", "mni152", "ct", "visiblehuman"].forEach((name) => {
   const preview = document.querySelector(
     `#${name}-figure > div.interactive-preview-container`
@@ -346,4 +340,73 @@ gradientOrderPreview.addEventListener("click", () => {
   preview.addEventListener("click", () => {
     activateFigure(name, preview.parentElement!);
   });
+});
+
+// Easy reproducibility dialog
+const dialog = document.querySelector("dialog")! as HTMLDialogElement;
+async function easyReproducibility() {
+  dialog.showModal();
+
+  const easyNvContainer = document.querySelector(
+    ".dialog-render"
+  )! as HTMLDivElement;
+  easyNvContainer.style.width = "600px";
+  easyNvContainer.style.height = "450px";
+  easyNvContainer.style.display = "block";
+  let canvas = easyNvContainer.querySelector("canvas") as HTMLCanvasElement;
+  if (canvas) {
+    easyNvContainer.removeChild(canvas);
+  }
+  canvas = document.createElement("canvas");
+  canvas.setAttribute("width", "600");
+  canvas.setAttribute("height", "450");
+  easyNvContainer.appendChild(canvas);
+
+  const easyNv = new Niivue(niiVueDefaults);
+  await easyNv.attachToCanvas(canvas);
+  const volumeList = [{ url: "/ct.nii.gz", colormap: "gray" }];
+  await easyNv.loadVolumes(volumeList);
+  easyNv.setSliceType(easyNv.sliceTypeRender);
+  easyNv.loadMatCapTexture(matCapTexture);
+  easyNv.setVolumeRenderIllumination(illumination);
+  easyNv.setClipPlane(clipPlane);
+  easyNv.setGradientOpacity(0.0);
+
+  const renderDuration = 15000; // 15 seconds
+  const startTime = performance.now();
+  const initialAzimuth = easyNv.scene.renderAzimuth;
+  const rotations = 1.5;
+  let azimuthChange = 0;
+  const dialogGradientOpacityText = document.querySelector(
+    "#dialog-gradient-opacity-text"
+  )! as HTMLSpanElement;
+  const rotateCamera = () => {
+    if (azimuthChange < rotations * 360) {
+      const currentTime = performance.now();
+      const elapsedTime = currentTime - startTime;
+      const progress = Math.min(1, elapsedTime / renderDuration);
+      easyNv.scene.renderAzimuth = initialAzimuth + 360 * progress * rotations;
+      azimuthChange = 360 * progress * rotations;
+      const gradientOpacity = Math.min(1.0, azimuthChange / (rotations * 360));
+      dialogGradientOpacityText.innerText = gradientOpacity.toFixed(2);
+      easyNv.setGradientOpacity(gradientOpacity);
+      requestAnimationFrame(rotateCamera);
+    }
+  };
+  requestAnimationFrame(rotateCamera);
+}
+const closeButton = dialog.querySelector(".close")! as HTMLElement;
+closeButton.addEventListener("click", () => {
+  dialog.close();
+});
+
+const easyButton = document.querySelector("#easy-button-img")! as HTMLElement;
+easyButton.addEventListener("click", () => {
+  easyReproducibility();
+});
+// For the physical Fideus Labs' Reproducibility Easy Button
+document.addEventListener("keydown", (event) => {
+  if (event.key === "2") {
+    easyReproducibility();
+  }
 });
