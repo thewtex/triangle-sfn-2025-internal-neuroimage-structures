@@ -26,3 +26,6 @@ dist-ssr
 # pixi environments
 .pixi
 *.egg-info
+
+# Local Netlify folder
+.netlify
